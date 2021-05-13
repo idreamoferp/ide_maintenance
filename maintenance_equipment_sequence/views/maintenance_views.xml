@@ -60,4 +60,24 @@
             </field>
         </field>
     </record>
+    
+    <record id="hr_equipment_view_kanban" model="ir.ui.view">
+        <field name="name">equipment.view.kanban</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='technician_user_id']" position="after">
+                <field name="code"/>
+            </xpath>
+            <xpath expr="//div[@class='o_kanban_record_top']" position='before'>
+                <div class="o_kanban_record_top">
+                    <b class="o_kanban_record_title">
+                        <span t-if="record.code.raw_value">[<field name="code"/>]</span>
+                        <field name="name"/>
+                        <small><span t-if="record.model.raw_value"> (<field name="model"/>)</span></small>
+                    </b>
+                </div>
+            </xpath>
+        </field>
+    </record>
 </odoo>
