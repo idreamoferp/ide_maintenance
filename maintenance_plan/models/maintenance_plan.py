@@ -8,8 +8,6 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
-<<<<<<< HEAD
-=======
 def get_relativedelta(interval, step):
     if step == "day":
         return relativedelta(days=interval)
@@ -25,7 +23,6 @@ def get_relativedelta(interval, step):
         return relativedelta(weekday=interval)
 
 
->>>>>>> re-format code
 class MaintenancePlan(models.Model):
     _name = "maintenance.plan"
     _description = "Maintenance Plan"
@@ -38,13 +35,16 @@ class MaintenancePlan(models.Model):
     company_id = fields.Many2one(comodel_name="res.company", default=lambda self: self.env.company,)
     maintenance_kind_id = fields.Many2one(string="Maintenance Kind", comodel_name="maintenance.kind", ondelete="restrict")
     interval = fields.Integer(string="Frequency", default=1, help="Interval between each maintenance")
-    interval_step = fields.Selection(intervals, string="Recurrence", default="year", help="Let the event automatically repeat at that interval step")
+    interval_step = fields.Selection([("day", "Day(s)"),("week", "Week(s)"),("month", "Month(s)"),("year", "Year(s)"),], string="Recurrence", default="year", help="Let the event automatically repeat at that interval step")
     duration = fields.Float(string="Duration (hours)", help="Maintenance duration in hours")
     start_maintenance_date = fields.Date(string="Start maintenance date", default=fields.Date.context_today, help="Date from which the maintenance will we active")
     next_maintenance_date = fields.Date("Next maintenance date", compute="_compute_next_maintenance", store=True)
     maintenance_plan_horizon = fields.Integer(string="Planning Horizon period", default=1, help="Maintenance planning horizon. Only the maintenance requests inside the horizon will be created.")
-    planning_step = fields.Selection(intervals, string="Planning Horizon step", default="year", help="Let the event automatically repeat at that interval")
+    planning_step = fields.Selection([("day", "Day(s)"),("week", "Week(s)"),("month", "Month(s)"),("year", "Year(s)")], string="Planning Horizon step", default="year", help="Let the event automatically repeat at that interval")
     note = fields.Html("Note")
+    maintenance_ids = fields.One2many("maintenance.request", "maintenance_plan_id", string="Maintenance requests")
+    maintenance_count = fields.Integer(compute="_compute_maintenance_count", string="Maintenance", store=True)
+    maintenance_open_count = fields.Integer(compute="_compute_maintenance_count", string="Current Maintenance", store=True)
     maintenance_ids = fields.One2many("maintenance.request", "maintenance_plan_id", string="Maintenance requests")
     maintenance_count = fields.Integer(compute="_compute_maintenance_count", string="Maintenance", store=True)
     maintenance_open_count = fields.Integer(compute="_compute_maintenance_count", string="Current Maintenance", store=True)
