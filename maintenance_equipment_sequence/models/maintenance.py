@@ -129,3 +129,6 @@ class MaintenanceEquipment(models.Model):
             if rec.category_id and not rec.code and rec.category_id.sequence_id:
                 rec.code = rec.category_id.sequence_id._next()
         return result
+        
+    def name_get(self):
+         return [(equipment.id, '%s%s' % (equipment.code and '[%s] ' % equipment.code or '', equipment.name)) for equipment in self]
