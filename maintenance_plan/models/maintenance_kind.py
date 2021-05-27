@@ -11,6 +11,8 @@ class MaintenanceKind(models.Model):
     _description = "Maintenance Kind"
 
     name = fields.Char("Name", required=True, translate=True)
+    sequence = fields.Integer(string='Sequence')
+    corrective = fields.Boolean(string='Type is Corrective', default=True)
     active = fields.Boolean("Active Kind", required=True, default=True)
 
     _sql_constraints = [

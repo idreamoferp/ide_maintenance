@@ -16,6 +16,7 @@
         "views/maintenance_kind_views.xml",
         "views/maintenance_plan_views.xml",
         "views/maintenance_equipment_views.xml",
+        "data/data.xml",
     ],
     "external_dependencies": {"python": ["dateutil"]},
     "demo": ["data/demo_maintenance_plan.xml"],
