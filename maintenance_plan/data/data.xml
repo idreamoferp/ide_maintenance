@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="maintenance_kind_inspect" model="maintenance.kind">
+            <field name="name">Inspection</field>
+            <field name="corrective" eval="False"/>
+            <field name="sequence">4</field>
+        </record>
+    </data>
+    <data>
+        <record id="maintenance_kind_clean" model="maintenance.kind">
+            <field name="name">Cleaning</field>
+            <field name="corrective" eval="False"/>
+            <field name="sequence">3</field>
+        </record>
+    </data>
+    <data>
+        <record id="maintenance_kind_corrective" model="maintenance.kind">
+            <field name="name">Corrective</field>
+            <field name="corrective" eval="True"/>
+            <field name="sequence">2</field>
+        </record>
+    </data>
+    <data>
+        <record id="maintenance_kind_prevent" model="maintenance.kind">
+            <field name="name">Preventative</field>
+            <field name="corrective" eval="False"/>
+            <field name="sequence">1</field>
+        </record>
+    </data>
+</odoo>
