@@ -8,6 +8,24 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
+<<<<<<< HEAD
+=======
+def get_relativedelta(interval, step):
+    if step == "day":
+        return relativedelta(days=interval)
+    elif step == "week":
+        return relativedelta(weeks=interval)
+    elif step == "month":
+        return relativedelta(months=interval)
+    elif step == "year":
+        return relativedelta(years=interval)
+    elif step == "hour":
+        return relativedelta(hours=interval)
+    elif step == "weekday":
+        return relativedelta(weekday=interval)
+
+
+>>>>>>> re-format code
 class MaintenancePlan(models.Model):
     _name = "maintenance.plan"
     _description = "Maintenance Plan"
