@@ -69,7 +69,7 @@
             <xpath expr="//field[@name='technician_user_id']" position="after">
                 <field name="code"/>
             </xpath>
-            <xpath expr="//div[@class='o_kanban_record_top']" position='before'>
+            <xpath expr="//div[@class='o_kanban_record_top']" position='replace'>
                 <div class="o_kanban_record_top">
                     <b class="o_kanban_record_title">
                         <span t-if="record.code.raw_value">[<field name="code"/>]</span>
