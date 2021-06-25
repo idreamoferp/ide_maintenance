@@ -4,12 +4,12 @@
 {
     "name": "Maintenance Equipment Daily Logs",
     "summary": "Start up and shutdown procedures and daily PM's",
-    "author": "Justin Mangini - I Dream of ERP",
+    "author": "ESG",
     "website": "",
     "category": "Equipments, Assets, Internal Hardware, Allocation Tracking",
-    "version": "1.0.0",
+    "version": "13.0.1.0.0",
     "license": "LGPL-3",
     "depends": ["maintenance"],
     "data": ["views/maintenance_equipment_views.xml","security/ir.model.access.csv"],
-    "demo": [""],
+    "demo": ["data/demo_maintenance_equipment_hierarchy.xml"],
 }

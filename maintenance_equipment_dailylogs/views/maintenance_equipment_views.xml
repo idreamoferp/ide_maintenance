@@ -7,25 +7,15 @@
         <field name="priority">10</field>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='maintenance']" position="after">
-                <group name="Maintenance Logs" colspan="2">
                 <!--<field name="active_daily_log_id"/>-->
                 <field name="daily_log_template_ids" >
-                    <tree>
-                       <field name="name"/>
-                       <!-- <field name="start_user_id"/>
-                       <field name="end_date"/>
-                       <field name="end_user_id"/> -->
-                    </tree>
+                    <!--<tree>-->
+                    <!--    <field name="start_date"/>-->
+                    <!--    <field name="start_user_id"/>-->
+                    <!--    <field name="end_date"/>-->
+                    <!--    <field name="end_user_id"/>-->
+                    <!--</tree>-->
                 </field>
-                <field name="daily_log_ids" >
-                    <tree>
-                       <field name="start_date"/>
-                       <field name="start_user_id"/>
-                       <field name="end_date"/>
-                       <field name="end_user_id"/>
-                    </tree>
-                </field>
-                </group>
             </xpath>
         </field>
     </record>
@@ -38,17 +28,6 @@
                 <field name="name"/>
                 <button name="create_log_from_template" string="Create Log" class="oe_highlight" type="object" context="{'default_equipment_id': active_id, 'equipment_id': active_id}"/>
             </tree>
-        </field>
-    </record>
-
-    <record id="maintenance_log_template_form" model="ir.ui.view">
-        <field name="name">maintenance.log.template.form</field>
-        <field name="model">maintenance.equipment.log.template</field>
-        <field name="arch" type="xml">
-            <form>
-                <field name="name"/>
-                <button name="create_log_from_template" string="Create Log" class="oe_highlight" type="object" context="{'default_equipment_id': active_id, 'equipment_id': active_id}"/>
-            </form>
         </field>
     </record>
     
@@ -103,13 +82,13 @@
     </record>
     
     <record id="maintenance_dailylogs_action" model="ir.actions.act_window">
-        <field name="name">Maintenance Log Templates</field>
-        <field name="res_model">maintenance.equipment.log.template</field>
-        <field name="view_mode">tree, form</field>
-        <!-- <field name="view_id" ref="maintenance_log_template_tree"/> -->
+        <field name="name">Daily Maintenance Logs</field>
+        <field name="res_model">maintenance.equipment.dailylog</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="maintenance_dailylogs_tree"/>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
-            Maintenance log Templates for your viewing pleasure.
+            Daily mintence logs for your viewing pleasure.
           </p>
         </field>
     </record>
