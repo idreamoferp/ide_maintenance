@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_equipment_view_form" model="ir.ui.view">
+        <field name="name">equipment.form.inherit</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form" />
+        <field name="model">maintenance.equipment</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='maintenance']" position="after">
+                <!--<field name="active_daily_log_id"/>-->
+                <field name="daily_log_template_ids" >
+                    <!--<tree>-->
+                    <!--    <field name="start_date"/>-->
+                    <!--    <field name="start_user_id"/>-->
+                    <!--    <field name="end_date"/>-->
+                    <!--    <field name="end_user_id"/>-->
+                    <!--</tree>-->
+                </field>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="maintenance_log_template_tree" model="ir.ui.view">
+        <field name="name">maintenance.log.template.tree</field>
+        <field name="model">maintenance.equipment.log.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <button name="create_log_from_template" string="Create Log" class="oe_highlight" type="object" context="{'default_equipment_id': active_id, 'equipment_id': active_id}"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record id="maintenance_dailylogs_form" model="ir.ui.view">
+        <field name="name">maintenance.dailylogs.form</field>
+        <field name="model">maintenance.equipment.dailylog</field>
+        <field name="arch" type="xml">
+            <form>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="start_user_id"/>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_user_id"/>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <group name="startup tasks">
+                <field name="startup_line_ids">
+                    <tree>
+                        <field name="title"/>
+                        <field name="completed"/>
+                    </tree>
+                </field>
+                <field name="shutdown_line_ids">
+                    <tree>
+                        <field name="title"/>
+                        <field name="completed"/>
+                    </tree>
+                </field>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="maintenance_dailylogs_tree" model="ir.ui.view">
+        <field name="name">maintenance.dailylogs.tree</field>
+        <field name="model">maintenance.equipment.dailylog</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="equipment_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="start_user_id"/>
+                <field name="end_user_id"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="maintenance_dailylogs_action" model="ir.actions.act_window">
+        <field name="name">Daily Maintenance Logs</field>
+        <field name="res_model">maintenance.equipment.dailylog</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="maintenance_dailylogs_tree"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Daily mintence logs for your viewing pleasure.
+          </p>
+        </field>
+    </record>
+    
+    <menuitem
+        id="menu_maintenance_daily_logs"
+        name="Daily Maintenance Logs"
+        parent="maintenance.menu_maintenance_configuration"
+        action="maintenance_dailylogs_action"
+        groups="maintenance.group_equipment_manager"
+        sequence="3" />
+</odoo>
