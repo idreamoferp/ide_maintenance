@@ -17,6 +17,10 @@ def get_relativedelta(interval, step):
         return relativedelta(months=interval)
     elif step == "year":
         return relativedelta(years=interval)
+    elif step == "hour":
+        return relativedelta(hours=interval)
+    elif step == "weekday":
+        return relativedelta(weekday=interval)
 
 
 class MaintenancePlan(models.Model):

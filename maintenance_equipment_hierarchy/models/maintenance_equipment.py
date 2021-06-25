@@ -11,21 +11,11 @@ class MaintenanceEquipment(models.Model):
     _parent_store = True
     _parent_order = "name"
 
-    parent_id = fields.Many2one(
-        "maintenance.equipment",
-        "Parent Equipment",
-        index=True,
-        ondelete="cascade",
-        track_visibility="onchange",
-    )
-    child_ids = fields.One2many(
-        "maintenance.equipment", "parent_id", "Child Equipments"
-    )
+    parent_id = fields.Many2one("maintenance.equipment","Parent Equipment",index=True,ondelete="cascade",track_visibility="onchange",)
+    child_ids = fields.One2many("maintenance.equipment", "parent_id", "Child Equipments")
     parent_left = fields.Integer("Left Parent", index=1)
     parent_right = fields.Integer("Right Parent", index=1)
-    child_count = fields.Integer(
-        compute="_compute_child_count", string="Number of child equipments"
-    )
+    child_count = fields.Integer(compute="_compute_child_count", string="Number of child equipments")
     display_name = fields.Char(compute="_compute_display_name")
     complete_name = fields.Char(compute="_compute_complete_name", store=True)
     parent_path = fields.Char(index=True)
