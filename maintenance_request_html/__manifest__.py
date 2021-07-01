@@ -1,0 +1,16 @@
+{
+    "name" : "Maintenance Request HTML Description",
+    "version" : "10.0.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance'],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Adds Maintenance Request HTML Description",
+    'data': [],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

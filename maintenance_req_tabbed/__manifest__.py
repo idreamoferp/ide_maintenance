@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Tabbed Request View",
+    "version" : "10.0.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance',],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Equipment Tabbed Request View",
+    'data': ['views/views.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

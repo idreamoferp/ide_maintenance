@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="portal_layout" name="Portal layout: maintenance menu entry" inherit_id="portal.portal_breadcrumbs" priority="40">
+            <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+                <li t-if="page_name == 'requests' " t-attf-class="breadcrumb-item #{'active ' if not requests else ''}">
+                    <a t-if="requests" t-attf-href="/my/maintenance?{{ keep_query() }}">My Requests</a>
+                    <t t-else="">My Requests</t>
+                </li>
+            </xpath>
+        </template>
+        
+        <template id="portal_my_home" name="Portal My Home: maintenance entries" inherit_id="portal.portal_my_home" priority="40">
+            <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+                <t t-if="project_count" t-call="portal.portal_docs_entry">
+                    <t t-set="title">Equipment</t>
+                    <t t-set="url" t-value="'/my/maintenance/equipment'"/>
+                    <t t-set="count" t-value="equipment_count"/>
+                </t>
+                <t t-if="task_count" t-call="portal.portal_docs_entry">
+                    <t t-set="title">Requests</t>
+                    <t t-set="url" t-value="'/my/maintenance/'"/>
+                    <t t-set="count" t-value="request_count"/>
+                </t>
+            </xpath>
+        </template>
+        
+        <template id="my_requests" name="My Requests">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Maintenance Requests</t>
+            </t>
+            <t t-if="not requests">
+                <div class="alert alert-warning mt8" role="alert">
+                    No Open Maintenance Requests
+                </div>
+            </t>
+            <t t-if="requests" t-call="portal.portal_table">
+                <tbody>
+                    <tr t-foreach="requests" t-as="request">
+                        <td>
+                            <span t-field="request.equipment_id"/>
+                        </td>
+                        <td>
+                            <a t-attf-href="/my/maintenance/request/#{request.id}?{{ keep_query() }}">[<span t-field="request.request_number"/>] <span t-field="request.name"/></a>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="request.schedule_date"  t-options='{"widget": "date"}'/>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    
+    <template id="maintenance_location" name="Maintenance by Location">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Maintenance Requests</t>
+            </t>
+            <t t-if="not requests">
+                <div class="alert alert-warning mt8" role="alert">
+                    No Open Maintenance Requests
+                </div>
+            </t>
+            
+            <t t-foreach="stock_location.child_ids" t-as="location">
+                <span t-field="location.name"/>
+            </t>
+            <t t-if="requests" t-call="portal.portal_table">
+                <tbody>
+                    <tr t-foreach="requests" t-as="request">
+                        <td>
+                            <span t-field="request.equipment_id"/>
+                        </td>
+                        <td>
+                            <a t-attf-href="/my/maintenance/request/#{request.id}?{{ keep_query() }}">[<span t-field="request.request_number"/>] <span t-field="request.name"/></a>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="request.schedule_date"  t-options='{"widget": "date"}'/>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </t>
+        </t>
+    </template>
+    </data>
+</odoo>

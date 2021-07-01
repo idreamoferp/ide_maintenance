@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="calibration_type_notsubject" model="maintenance.request.type">
+            <field name="name">Inspection</field>
+            <field name="corrective" eval="False"/>
+            <field name="sequence">4</field>
+        </record>
+    </data>
+    <data>
+        <record id="calibration_type_verify" model="maintenance.request.type">
+            <field name="name">Cleaning</field>
+            <field name="corrective" eval="False"/>
+            <field name="sequence">3</field>
+        </record>
+    </data>
+    <data>
+        <record id="calibration_type_intcalibration" model="maintenance.request.type">
+            <field name="name">Corrective</field>
+            <field name="corrective" eval="True"/>
+            <field name="sequence">2</field>
+        </record>
+    </data>
+    <data>
+        <record id="calibration_type_extcalibration" model="maintenance.request.type">
+            <field name="name">Preventative</field>
+            <field name="corrective" eval="False"/>
+            <field name="sequence">1</field>
+        </record>
+    </data>
+</odoo>
