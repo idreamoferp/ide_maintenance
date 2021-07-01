@@ -24,19 +24,4 @@
             <field name="calibration_required" eval="True"/>
         </record>
     </data> -->
-    <data>
-        <record id="maintenance_kind_extcalibration" model="maintenance.kind">
-            <field name="name">External Calibration</field>
-        </record>
-    </data>
-    <data>
-        <record id="maintenance_kind_intcalibration" model="maintenance.kind">
-            <field name="name">Internal Calibration</field>
-        </record>
-    </data>
-    <data>
-        <record id="maintenance_kind_verify" model="maintenance.kind">
-            <field name="name">Internal Verification</field>
-        </record>
-    </data>
 </odoo>
