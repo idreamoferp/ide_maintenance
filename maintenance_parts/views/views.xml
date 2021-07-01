@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="equipment_parts_form" model="ir.ui.view" >
+        <field name="name">maintenance.equipment.parts.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Parts">
+                    <field name="part_ids" context="{'default_type':'parts',}">
+                        <tree>
+                            <field name="default_code"/>
+                            <field name="name"/>
+                            <field name="qty_available"/>
+                            <field name="virtual_available"/>
+                            <field name="standard_price"/>
+                            <field name="lst_price"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    
+    <record id="maintenance_request_parts_form" model="ir.ui.view" >
+        <field name="name">maintenance.request.parts.form</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance_req_tabbed.request_tabbed_form"/>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="parts" string="Parts">
+                    <field name="move_raw_ids">
+                        <tree delete="0" default_order="sequence"  >
+                            <field name="product_id" required="1"/>
+                            <field name="name" invisible="1"/>
+                            <!--<field name="unit_factor" invisible="1"/>-->
+                            <field name="product_uom" groups="uom.group_uom"/>
+                            <field name="has_tracking" invisible="1"/>
+                            <!--<field name="needs_lots" readonly="1" groups="stock.group_production_lot"/>-->
+                            <!--<field name="is_done" invisible="1"/>-->
+                            <field name="sequence" invisible="1"/>
+                            <field name="location_id" invisible="1"/>
+                            <!--<field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>-->
+                            <!--<field name="state" invisible="1" force_save="1"/>-->
+                            <field name="product_uom_qty" string="To Consume"/>
+                            <!--<field name="reserved_availability" attrs="{'invisible': [('is_done', '=', True)], 'column_invisible': [('parent.state', '=', 'done')]}" string="Reserved"/>-->
+                            <field name="quantity_done" string="Consumed" readonly="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+      
+  </data>
+</openerp>

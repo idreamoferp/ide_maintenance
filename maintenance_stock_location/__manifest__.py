@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Location from Stock",
+    "version" : "10.0.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance', 'stock'],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Uses the Inventory stock locations for equipment locations",
+    'data': [],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

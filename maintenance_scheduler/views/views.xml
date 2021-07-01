@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="maintenance_request_schedule_form" model="ir.ui.view" >
+         <field name="name">maintenance.request.schedule.form</field>
+         <field name="model">maintenance.request</field>
+         <field name="inherit_id" ref="maintenance_req_tabbed.request_tabbed_form"/>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="scheduler" string="Schedule">
+                    <group string="Scheduler">
+                        <group name="scheduler_1">
+                            <label for="interval_number" string="Create Every"/>
+                            <div>
+                                <field name="interval_number" class="oe_inline"/>
+                                <field name="interval_type" class="oe_inline"/>
+                            </div>
+                            <field name="interval_count"/>
+                        </group>
+                        <group name="scheduler_2">
+                            <label for="pre_interval_number" string="Create Before Due"/>
+                            <div>
+                                <field name="pre_interval_number" class="oe_inline"/>
+                                <field name="pre_interval_type" class="oe_inline"/>
+                            </div>
+                            <field name="next_interval_date"/>
+                            <!--<field name="next_request_id"/>-->
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+         </field>
+      </record>
+      
+      <record id="maintenance_equipment_schedule_form" model="ir.ui.view" >
+         <field name="name">maintenance.equipment.schedule.form</field>
+         <field name="model">maintenance.equipment</field>
+         <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+            <xpath expr="//group[@name='maintenance']/ancestor::group[1]" position="replace">
+                <group name="maintenance">
+                    <field name="period" invisible="True"/>
+                </group>
+                    <field name="maintenance_ids" nolabel="1"
+                           domain="[('maintenance_type','=','preventive'),('interval_type','!=',False)]" 
+                           context="{'default_equipment_id':active_id, 'default_maintenance_type':'preventive'}">
+                        <tree>
+                            <field name="request_number"/>
+                            <field name="name"/>
+                            <field name="schedule_date"/>
+                            <field name="user_id"/>
+                            <field name="stage_id"/>
+                        </tree>
+                    </field>
+            </xpath>
+         </field>
+      </record>
+  </data>
+</openerp>
