@@ -1,0 +1,17 @@
+{
+    "name" : "Maintence Portal",
+    "version" : "b.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance','maintenance_calibration_test_tool','maintenance_calibration','maintenance_request_html',
+                 'maintenance_stock_location',],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Maintence Portal",
+    'data': ['templates/templates.xml', 'views/views.xml', 'reports/maintenance.xml',],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

@@ -1,0 +1,16 @@
+{
+    "name" : "Maintenance Multi Equiptment Request",
+    "version" : "10.0.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance', 'maintenance_req_tabbed'],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Adds multiple equiptments to a request for maintenance",
+    'data': ['views/views.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

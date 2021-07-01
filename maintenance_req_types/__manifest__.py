@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Request Type",
+    "version" : "10.0.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance',],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Adds a table lookup for Request Type",
+    'data': ['views/views.xml','data/data.xml','security/security.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

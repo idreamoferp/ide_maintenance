@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="request_tabbed_form" model="ir.ui.view" >
+         <field name="name">maintenance.request.tabbed.form</field>
+         <field name="model">maintenance.request</field>
+         <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+         <field eval="10" name="priority"/>
+         <field name="arch" type="xml">
+            <data>
+               <xpath expr="//group" position="replace"/>
+               <xpath expr="//field[@name='description']" position="replace"/>
+               <xpath expr="//sheet" position="inside">
+                   <notebook>
+                       <page name="detail" string="Details">
+                           <group>
+                                <group>
+                                    <field name="owner_user_id" string="Requested By" invisible="1"/>
+                                    <field name="equipment_id" context="{'default_company_id':company_id, 'default_category_id':category_id}"/>
+                                    <field name="category_id" groups="maintenance.group_equipment_manager" context="{'default_company_id':company_id}" attrs="{'invisible': [('equipment_id', '=', False)]}"/>
+                                    <field name="request_date" readonly="True"/>
+                                    <field name="done" invisible="1"/>
+                                    <field name="close_date" attrs="{'invisible': [('done', '!=', True)]}" readonly="True"/>
+                                    <field name="archive" invisible="1"/>
+                                    <field name="maintenance_type" widget="radio"/>
+                                </group>
+                                <group>
+                                    <field name="maintenance_team_id" options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="user_id" string="Responsible"/>
+                                    <field name="schedule_date"/>
+                                    <label for="duration"/>
+                                    <div>
+                                        <field name="duration" widget="float_time" class="oe_inline"/> <span class="ml8">hours</span>
+                                    </div>
+                                    <field name="priority" widget="priority"/>
+                                    <field name="email_cc" string="Email cc" groups="base.group_no_one"/>
+                                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                </group>
+                            </group>
+                       </page>
+                       <page name="description" string="Description">
+                        <field name="description" placeholder="Internal Note ......."/>
+                       </page>
+                   </notebook>
+               </xpath>
+            </data>
+         </field>
+      </record>
+  </data>
+</openerp>

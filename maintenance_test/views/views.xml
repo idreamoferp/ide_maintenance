@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="equipment_form" model="ir.ui.view" >
+         <field name="name">maintenance.equipment.test.form</field>
+         <field name="model">maintenance.equipment</field>
+         <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+           <notebook position="inside">
+             <page string="Tests">
+               <field name="test_ids">
+                  <tree>
+                    <field name="test_date"/>
+                    <field name="name"/>
+                    <field name="initial_value"/>
+                    <!--<field name="initial_value_uom"/>-->
+                    <field name="final_value"/>
+                    <!--<field name="final_value_uom"/>-->
+                    <field name="target_value"/>
+                    <field name="target_value_uom"/>
+                    <field name="tolerance"/>
+                    <field name="initial_result"/>
+                    <field name="final_result"/>
+                  </tree>
+               </field>
+             </page>
+           </notebook>
+         </field>
+      </record>
+      
+      <record id="request_form" model="ir.ui.view" >
+         <field name="name">maintenance.request.test.form</field>
+         <field name="model">maintenance.request</field>
+         <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+           <notebook position="inside">
+             <page string="Testing">
+               <field name="test_ids" context="{'default_request_id': active_id}">
+                  <tree editable="bottom" >
+                    <field name="request_id" invisible="1"/>
+                    <field name="test_date"/>
+                    <field name="equipment_id"/>
+                    <field name="name"/>
+                    <field name="initial_value"/>
+                    <!--<field name="initial_value_uom"/>-->
+                    <field name="final_value"/>
+                    <!--<field name="final_value_uom"/>-->
+                    <field name="target_value"/>
+                    <field name="target_value_uom"/>
+                    <field name="tolerance"/>
+                    <field name="initial_result" readonly="1"/>
+                    <field name="final_result" readonly="1"/>
+                  </tree>
+               </field>
+             </page>
+           </notebook>
+         </field>
+      </record>
+  </data>
+</openerp>

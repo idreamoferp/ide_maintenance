@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Parts Inventory",
+    "version" : "b.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance', 'stock','maintenance_req_tabbed'],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Adds parts inventory managment to Equipments module",
+    'data': ['views/views.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}
