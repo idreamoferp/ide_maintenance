@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Calibration",
+    "version" : "1.0",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance', 'uom','uom_additional_uom' ],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Adds Equipment Calibration",
+    'data': ['views/views.xml', 'security/security.xml','data/data.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}

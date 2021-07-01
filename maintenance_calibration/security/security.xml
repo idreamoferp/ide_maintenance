@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="maintenance_calibration_user_acl" model="ir.model.access">
+            <field name="name">base.group_user</field>
+            <field name="model_id" ref="model_maintenance_calibration"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        <record id="maintenance_calibration_manager_acl" model="ir.model.access">
+            <field name="name">maintenance.group_equipment_manager</field>
+            <field name="model_id" ref="model_maintenance_calibration"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <record id="maintenance_calibration_type_user_acl" model="ir.model.access">
+            <field name="name">base.group_user</field>
+            <field name="model_id" ref="model_maintenance_calibration_type"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+        <record id="maintenance_calibration_type_manager_acl" model="ir.model.access">
+            <field name="name">maintenance.group_equipment_manager</field>
+            <field name="model_id" ref="model_maintenance_calibration_type"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <record id="calibration_calibration_procedure_manager_acl" model="ir.model.access">
+            <field name="name">maintenance.group_equipment_manager</field>
+            <field name="model_id" ref="model_calibration_calibration_procedure"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <record id="calibration_calibration_procedure_test_manager_acl" model="ir.model.access">
+            <field name="name">maintenance.group_equipment_manager</field>
+            <field name="model_id" ref="model_calibration_calibration_procedure_test"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        <record id="maintenance_calibration_test_manager_acl" model="ir.model.access">
+            <field name="name">maintenance.group_equipment_manager</field>
+            <field name="model_id" ref="model_maintenance_calibration_test"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+    </data>
+</openerp>

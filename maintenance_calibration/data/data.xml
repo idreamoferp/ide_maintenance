@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="calibration_type_notsubject" model="maintenance.calibration.type">
+            <field name="name">Not Subject to Calibration</field>
+            <field name="calibration_required" eval="False"/>
+        </record>
+    </data>
+    <data>
+        <record id="calibration_type_verify" model="maintenance.calibration.type">
+            <field name="name">Internal Verification</field>
+            <field name="calibration_required" eval="True"/>
+        </record>
+    </data>
+    <data>
+        <record id="calibration_type_intcalibration" model="maintenance.calibration.type">
+            <field name="name">Internal Calibration</field>
+            <field name="calibration_required" eval="True"/>
+        </record>
+    </data>
+    <data>
+        <record id="calibration_type_extcalibration" model="maintenance.calibration.type">
+            <field name="name">External Calibration</field>
+            <field name="calibration_required" eval="True"/>
+        </record>
+    </data>
+</odoo>

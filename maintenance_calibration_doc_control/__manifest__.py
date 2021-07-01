@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Calibration - Document Control",
+    "version" : "1.0",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance_calibration'],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Equipment Calibration - Document Control",
+    'data': ['views/views.xml', 'security/security.xml','data/data.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}
