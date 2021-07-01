@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+      <record id="maintenance_equipment_cal_form" model="ir.ui.view" >
+         <field name="name">maintenance.equipment.calibration.form</field>
+         <field name="model">maintenance.equipment</field>
+         <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+           <notebook position="inside">
+             <page string="Calibration">
+              <group colspan="2">
+                <group>
+                     <field name="calibration_type"/>
+                     <label for="calibration_interval"/>
+                     <div class="o_row" name="calibration_interval">
+                        <field name="calibration_interval"/>
+                        <field name="calibration_interval_type" nolabel="1"/>
+                     </div>
+                </group>
+                <group>
+                     <field name="calibration_status"/>
+                        <field name="calibration_procedure_id" string="Default Procedure"/>
+                </group>
+                </group>
+                <field name="calibration_ids" context="{'default_equipment_id':active_id,'default_calibration_type':calibration_type, 'default_procedure_id':calibration_procedure_id}" nolabel="1">
+                    <tree>
+                        <field name="name"/>
+                        <field name="procedure_id"/>
+                        <field name="calibration_start_date"/>
+                        <field name="calibration_end_date"/>
+                        <field name="initial_result" string="As Found"/>
+                        <field name="final_result" string="As Left"/>
+                        <!--<field name="lst_price"/>-->
+                    </tree>
+                </field>
+             </page>
+           </notebook>
+         </field>
+      </record>
+      
+      <record id="maintenance_calibration_form" model="ir.ui.view" >
+         <field name="name">maintenance.calibration.form</field>
+         <field name="model">maintenance.calibration</field>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+            <form string="Calibration">
+               <div class="oe_title">
+                  <label for="name" class="oe_edit_only"/>
+                  <h1><field name="name" string="Name" placeholder="Calibration Title"/></h1>
+               </div>
+               <notebook>
+                  <page string="Basics" name="basics">
+                     <group colspan="2">
+                        <group>
+                           <field name="calibration_type"/>
+                           <field name="procedure_id"/>
+                           <field name="responsible_user_id"/>
+                           <field name="partner_id" />
+                        </group>
+                        <group>
+                           <field name="calibration_start_date"/>
+                           <field name="calibration_end_date"/>
+                           <field name="initial_result" string="As Found"/>
+                           <field name="final_result" String="As Left"/>
+                        </group>
+                     </group>
+                  </page>
+                  
+                  <page string="Procedure" name="procedure">
+                     <field name="description"/>
+                     <field name="test_ids">
+                        <tree>
+                           <field name="sequence" invisible="1"/>
+                           <field name="name"/>
+                           <field name="target_value"/>
+                           <field name="tolerance"/>
+                           <field name="target_value_uom"/>
+                           <field name="final_value"/>
+                           <field name="final_value_uom"/>
+                           <field name="initial_result"/>
+                           <field name="final_result" />
+                        </tree>
+                        <form>
+                           <field name="calibration_id" invisible="1"/>
+                           <field name="calibration_type" invisible="1"/>
+                           <field name="sequence" invisible="1"/>
+                           <group colspan="2">
+                              <group>
+                                <field name="name"/>
+                                <label for="target_value"/>
+                                 <div class="o_row" name="target_value">
+                                     <field name="target_value" string="target_value"/>
+                                     <field name="target_value_uom" nolabel="1"/>
+                                 </div>
+                                 <label for="tolerance"/>
+                                 <div class="o_row" name="tolerance">
+                                    <field name="tolerance" string="tolerance"/>
+                                    <field name="tolerance_uom" nolabel="1"/>
+                                 </div>
+                                 <label for="initial_value"/>
+                                 <div class="o_row" name="initial_value">
+                                    <field name="initial_value" string="initial_value"/>
+                                    <field name="initial_value_uom" nolabel="1"/>
+                                 </div>
+                                 <label for="final_value"/>
+                                 <div class="o_row" name="final_value" attrs="{'invisible': [('calibration_type', '=', 'Internal Verification')]}">
+                                    <field name="final_value" string="final_value"/>
+                                    <field name="final_value_uom" nolabel="1"/>
+                                 </div>
+                              </group>
+                              <group>
+                                 <field name="test_type"/>
+                                 <field name="initial_result" readonly="1" string="As Found In Tolerance"/>
+                                 <field name="final_result" readonly="1" string="As left In Tolerance" attrs="{'invisible': [('calibration_type', '=', 'Internal Verification')]}"/>
+                              </group>
+                           </group>
+                        </form>
+                     </field>
+                  </page>
+                  <page string="Certificate" name="cerificate">
+                     <field name="calibration_cert" widget="pdf_viewer"/>
+                  </page>
+               </notebook>
+               
+            </form>
+         </field>
+      </record>
+      
+      
+      <!--CALIBRATION PROCEDURES-->
+      <record id="action_maintenance_calibration_procedure" model="ir.actions.act_window">
+           <field name="name">Calibration Procedures</field>
+           <field name="res_model">calibration.calibration.procedure</field>
+           <field name="view_mode">tree,kanban,form</field>
+           <!--<field name="view_type">form</field>-->
+           <field name="help" type="html">
+             <p class="o_view_nocontent_smiling_face">
+               Add a new Calibration Procedure 
+             </p>
+           </field>
+       </record>
+      
+      <menuitem
+        id="menu_maintenance_calibration_procedure"
+        name="Calibration Procedures"
+        parent="maintenance.menu_maintenance_configuration"
+        action="action_maintenance_calibration_procedure"
+        groups="maintenance.group_equipment_manager"
+        sequence="3" />
+        
+      <record id="calibration_procedure_form" model="ir.ui.view" >
+         <field name="name">calibration.calibration.procedure.form</field>
+         <field name="model">calibration.calibration.procedure</field>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+            <form string="Calibration Procedure">
+               <group>
+                  <group>
+                     <field name="name"/>
+                     <field name="compute_type"/>
+                  </group>
+                  <group>
+                     
+                  </group>
+                  <field name="description"/>
+               </group>
+               <group name='tests' string="Tests" >
+                  <group colspan="2">                  
+                     <field name="test_line_ids" nolabel="1">
+                       <tree>
+                         <field name="sequence" widget="handle"/>
+                         <field name="name"/>
+                         <field name="target_value"/>
+                         <field name="target_value_uom"/>
+                         <field name="tolerance"/>
+                         <field name="tolerance_uom"/>
+                       </tree>
+                       <form>
+                          <group>
+                              <field name="name"/>
+                              <group>
+                                 <field name="target_value"/>
+                                 <field name="tolerance"/>
+                                 <field name="test_type"/>
+                              </group>
+                              <group>
+                                 <field name="target_value_uom"/>
+                                 <field name="tolerance_uom"/>
+                              </group>
+                           </group>
+                       </form>
+                     </field>
+                  </group>
+               </group>  
+            </form> 
+         </field>
+      </record>
+  </data>
+</openerp>
