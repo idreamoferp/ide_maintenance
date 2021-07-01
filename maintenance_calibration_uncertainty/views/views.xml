@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+      <record id="maintenance_calibration_uncertainty_form" model="ir.ui.view" >
+         <field name="name">maintenance.calibration.uncertainty.form</field>
+         <field name="model">maintenance.calibration</field>
+          <field name="inherit_id" ref="maintenance_calibration.maintenance_calibration_form"/>
+         <field eval="20" name="priority"/>
+         <field name="arch" type="xml">
+            <!--<xpath expr="//field[@name='test_ids']/tree//field[@name='name']" position="after">-->
+            <!--  <field name="uncertainty_value"/>-->
+            <!--  <field name="uncertainty_value_uom"/>-->
+            <!--</xpath>-->
+            
+            <xpath expr="//field[@name='test_ids']/form//div[@name='final_value']" position="after">
+              <label for="uncertainty_value"/>
+              <div class="o_row" name="uncertainty_value">
+                <field name="uncertainty_value" string="uncertainty_value"/>
+                <field name="uncertainty_value_uom" nolabel="1"/>
+              </div>
+            </xpath>
+            
+         </field>
+      </record>
+      
+  </data>
+</openerp>

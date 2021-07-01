@@ -1,0 +1,16 @@
+{
+    "name" : "Equipment Calibration - Uncertainty",
+    "version" : "b.1",
+    "author" : "Justin Mangini",
+    'category': 'Human Resources',
+    "depends" : ['maintenance_calibration', ],
+    "init_xml" : [],
+    "demo_xml" : [],
+    "description": "Adds Calibration Uncertainty to Equipment Calibration",
+    'data': ['views/views.xml'],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'certificate': '',
+    'images': [''],
+}
