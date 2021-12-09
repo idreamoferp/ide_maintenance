@@ -9,6 +9,10 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-base_maintenance',
+        'odoo13-addon-base_maintenance_config',
+        'odoo13-addon-base_maintenance_group',
+        'odoo13-addon-maintenance_equipment_always_fold',
+        'odoo13-addon-maintenance_equipment_category_kanban',
         'odoo13-addon-maintenance_equipment_contract',
         'odoo13-addon-maintenance_equipment_custom_info',
         'odoo13-addon-maintenance_equipment_hierarchy',
@@ -20,6 +24,7 @@ setuptools.setup(
         'odoo13-addon-maintenance_plan_activity',
         'odoo13-addon-maintenance_project',
         'odoo13-addon-maintenance_project_plan',
+        'odoo13-addon-maintenance_remote',
         'odoo13-addon-maintenance_request_sequence',
         'odoo13-addon-maintenance_request_stage_transition',
         'odoo13-addon-maintenance_team_hierarchy',
@@ -28,5 +33,6 @@ setuptools.setup(
     classifiers=[
         'Programming Language :: Python',
         'Framework :: Odoo',
+        'Framework :: Odoo :: 13.0',
     ]
 )
