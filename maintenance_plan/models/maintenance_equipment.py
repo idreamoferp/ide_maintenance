@@ -5,8 +5,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from .maintenance_plan import get_relativedelta
-
 
 class MaintenanceEquipment(models.Model):
 

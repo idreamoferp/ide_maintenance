@@ -1,14 +1,14 @@
 # Copyright 2019 ForgeFlow S.L.
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
     "name": "Base Maintenance",
     "version": "13.0.1.1.2",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "development_status": "Beta",
-    "website": "https://www.github.com/OCA/maintenance",
+    "website": "https://github.com/OCA/maintenance",
     "category": "Maintenance",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": ["maintenance"],
     "data": [
         "views/maintenance_team_views.xml",

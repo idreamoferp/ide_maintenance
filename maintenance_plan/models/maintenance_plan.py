@@ -69,7 +69,9 @@ class MaintenancePlan(models.Model):
     def _compute_next_maintenance(self):
         for plan in self.filtered(lambda x: x.interval > 0):
 
-            interval_timedelta = get_relativedelta(plan.interval, plan.interval_step)
+            interval_timedelta = self.get_relativedelta(
+                plan.interval, plan.interval_step
+            )
 
             next_maintenance_todo = self.env["maintenance.request"].search(
                 [
