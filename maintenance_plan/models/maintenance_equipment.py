@@ -65,7 +65,8 @@ class MaintenanceEquipment(models.Model):
 
     def _create_new_request(self, maintenance_plan):
         # Compute horizon date adding to today the planning horizon
-        horizon_date = fields.Date.from_string(fields.Date.today()) + get_relativedelta(maintenance_plan.maintenance_plan_horizon, maintenance_plan.planning_step)
+        horizon_date = fields.Date.from_string(fields.Date.today()) + maintenance_plan.get_relativedelta(maintenance_plan.maintenance_plan_horizon, maintenance_plan.planning_step)
+        
         # We check maintenance request already created and create until
         # planning horizon is met
         furthest_maintenance_todo = self.env["maintenance.request"].search([("maintenance_plan_id", "=", maintenance_plan.id)], order="request_date desc", limit=1)
@@ -73,7 +74,7 @@ class MaintenanceEquipment(models.Model):
         furthest_maintenance_todo = self.env["maintenance.request"].search([("maintenance_plan_id", "=", maintenance_plan.id)], order="request_date desc", limit=1)
         
         if furthest_maintenance_todo:
-            next_maintenance_date = fields.Date.from_string(furthest_maintenance_todo.request_date) + get_relativedelta(maintenance_plan.interval, maintenance_plan.interval_step)
+            next_maintenance_date = fields.Date.from_string(furthest_maintenance_todo.request_date) + maintenance_plan.get_relativedelta(maintenance_plan.interval, maintenance_plan.interval_step)
             
         else:
             next_maintenance_date = fields.Date.from_string(maintenance_plan.next_maintenance_date)
@@ -89,7 +90,7 @@ class MaintenanceEquipment(models.Model):
                 vals = self._prepare_request_from_plan(maintenance_plan, next_maintenance_date)
                 vals = self._prepare_request_from_plan(maintenance_plan, next_maintenance_date)
                 requests |= self.env["maintenance.request"].create(vals)
-            next_maintenance_date = next_maintenance_date + get_relativedelta(maintenance_plan.interval, maintenance_plan.interval_step)
+            next_maintenance_date = next_maintenance_date + maintenance_plan.get_relativedelta(maintenance_plan.interval, maintenance_plan.interval_step)
         return requests
 
     @api.model

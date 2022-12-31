@@ -115,8 +115,9 @@ class MaintenancePlan(models.Model):
     @api.constrains("company_id", "equipment_id")
     def _check_company_id(self):
         for rec in self:
-            if (rec.equipment_id.company_id and rec.company_id != rec.equipment_id.company_id):
-                raise ValidationError(_("Maintenace Equipment must belong to the equipment's company"))
+            # if (rec.equipment_id.company_id and rec.company_id != rec.equipment_id.company_id):
+            #     raise ValidationError(_("Maintenace Equipment must belong to the equipment's company"))
+            pass
 
     def unlink(self):
         """ Restrict deletion of maintenance plan should there be maintenance
