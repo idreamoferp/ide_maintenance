@@ -69,7 +69,7 @@ class MaintenancePlan(models.Model):
     def _compute_next_maintenance(self):
         for plan in self.filtered(lambda x: x.interval > 0):
 
-            interval_timedelta = self.get_relativedelta(
+            interval_timedelta = get_relativedelta(
                 plan.interval, plan.interval_step
             )
 
@@ -108,8 +108,9 @@ class MaintenancePlan(models.Model):
     @api.constrains("company_id", "equipment_id")
     def _check_company_id(self):
         for rec in self:
-            if (rec.equipment_id.company_id and rec.company_id != rec.equipment_id.company_id):
-                raise ValidationError(_("Maintenace Equipment must belong to the equipment's company"))
+            # if (rec.equipment_id.company_id and rec.company_id != rec.equipment_id.company_id):
+            #     raise ValidationError(_("Maintenace Equipment must belong to the equipment's company"))
+            pass
 
     def unlink(self):
         """ Restrict deletion of maintenance plan should there be maintenance
