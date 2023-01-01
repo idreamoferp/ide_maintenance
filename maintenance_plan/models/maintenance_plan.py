@@ -8,19 +8,19 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
-def get_relativedelta(interval, step):
-    if step == "day":
-        return relativedelta(days=interval)
-    elif step == "week":
-        return relativedelta(weeks=interval)
-    elif step == "month":
-        return relativedelta(months=interval)
-    elif step == "year":
-        return relativedelta(years=interval)
-    elif step == "hour":
-        return relativedelta(hours=interval)
-    elif step == "weekday":
-        return relativedelta(weekday=interval)
+# def get_relativedelta(interval, step):
+#     if step == "day":
+#         return relativedelta(days=interval)
+#     elif step == "week":
+#         return relativedelta(weeks=interval)
+#     elif step == "month":
+#         return relativedelta(months=interval)
+#     elif step == "year":
+#         return relativedelta(years=interval)
+#     elif step == "hour":
+#         return relativedelta(hours=interval)
+#     elif step == "weekday":
+#         return relativedelta(weekday=interval)
 
 
 class MaintenancePlan(models.Model):
@@ -57,7 +57,6 @@ class MaintenancePlan(models.Model):
         result = []
         for plan in self:
             result.append(  (plan.id, plan.name or _("Unnamed %s plan (%s)") % (plan.maintenance_kind_id.name or "", plan.equipment_id.name)) )
-            result.append(  (plan.id, plan.name or _("Unnamed %s plan (%s)") % (plan.maintenance_kind_id.name or "", plan.equipment_id.name)) )
         return result
 
     @api.depends("maintenance_ids.stage_id.done")
@@ -65,6 +64,20 @@ class MaintenancePlan(models.Model):
         for equipment in self:
             equipment.maintenance_count = len(equipment.maintenance_ids)
             equipment.maintenance_open_count = len(equipment.maintenance_ids.filtered(lambda x: not x.stage_id.done))
+
+    def get_relativedelta(self, interval, step):
+        if step == "day":
+            return relativedelta(days=interval)
+        elif step == "week":
+            return relativedelta(weeks=interval)
+        elif step == "month":
+            return relativedelta(months=interval)
+        elif step == "year":
+            return relativedelta(years=interval)
+        elif step == "hour":
+            return relativedelta(hours=interval)
+        elif step == "weekday":
+            return relativedelta(weekday=interval)
 
     @api.depends(
         "interval",
@@ -76,7 +89,7 @@ class MaintenancePlan(models.Model):
     def _compute_next_maintenance(self):
         for plan in self.filtered(lambda x: x.interval > 0):
 
-            interval_timedelta = get_relativedelta(
+            interval_timedelta = self.get_relativedelta(
                 plan.interval, plan.interval_step
             )
 
