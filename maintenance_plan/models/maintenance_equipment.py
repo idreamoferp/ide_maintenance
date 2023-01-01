@@ -11,8 +11,6 @@ class MaintenanceEquipment(models.Model):
 
     maintenance_plan_ids = fields.One2many(string="Maintenance plan", comodel_name="maintenance.plan", inverse_name="equipment_id")
     maintenance_plan_count = fields.Integer(compute="_compute_maintenance_plan_count", string="Maintenance Plan Count", store=True)
-    maintenance_plan_ids = fields.One2many(string="Maintenance plan", comodel_name="maintenance.plan", inverse_name="equipment_id")
-    maintenance_plan_count = fields.Integer(compute="_compute_maintenance_plan_count", string="Maintenance Plan Count", store=True)
     maintenance_team_required = fields.Boolean(compute="_compute_team_required")
     notes = fields.Text(string="Notes")
 
@@ -20,19 +18,15 @@ class MaintenanceEquipment(models.Model):
     def _compute_maintenance_plan_count(self):
         for equipment in self:
             equipment.maintenance_plan_count = len(equipment.with_context(active_test=False).maintenance_plan_ids)
-            equipment.maintenance_plan_count = len(equipment.with_context(active_test=False).maintenance_plan_ids)
 
     @api.depends("maintenance_plan_ids")
     def _compute_team_required(self):
         for equipment in self:
             equipment.maintenance_team_required = (len(equipment.maintenance_plan_ids.filtered(lambda r: not r.maintenance_team_id))>= 1)
-            equipment.maintenance_team_required = (len(equipment.maintenance_plan_ids.filtered(lambda r: not r.maintenance_team_id))>= 1)
 
     @api.constrains("company_id", "maintenance_plan_ids")
     def _check_company_id(self):
         for rec in self:
-            if rec.company_id and not all(rec.company_id == p.company_id for p in rec.maintenance_plan_ids):
-                raise ValidationError( _("Some maintenance plan's company is incompatible with the company of this equipment.") )
             if rec.company_id and not all(rec.company_id == p.company_id for p in rec.maintenance_plan_ids):
                 raise ValidationError( _("Some maintenance plan's company is incompatible with the company of this equipment.") )
 
@@ -70,23 +64,17 @@ class MaintenanceEquipment(models.Model):
         # planning horizon is met
         furthest_maintenance_todo = self.env["maintenance.request"].search([("maintenance_plan_id", "=", maintenance_plan.id)], order="request_date desc", limit=1)
         
-        furthest_maintenance_todo = self.env["maintenance.request"].search([("maintenance_plan_id", "=", maintenance_plan.id)], order="request_date desc", limit=1)
-        
         if furthest_maintenance_todo:
             next_maintenance_date = fields.Datetime.from_string(furthest_maintenance_todo.request_date) + maintenance_plan.get_relativedelta(maintenance_plan.interval, maintenance_plan.interval_step)
             
         else:
             next_maintenance_date = fields.Datetime.from_string(maintenance_plan.next_maintenance_date)
         
-            next_maintenance_date = fields.Date.from_string(maintenance_plan.next_maintenance_date)
-        
         requests = self.env["maintenance.request"]
-        
         
         # Create maintenance request until we reach planning horizon
         while next_maintenance_date <= horizon_date:
             if next_maintenance_date >= fields.Datetime.from_string(fields.Datetime.today()):
-                vals = self._prepare_request_from_plan(maintenance_plan, next_maintenance_date)
                 vals = self._prepare_request_from_plan(maintenance_plan, next_maintenance_date)
                 requests |= self.env["maintenance.request"].create(vals)
             next_maintenance_date = next_maintenance_date + maintenance_plan.get_relativedelta(maintenance_plan.interval, maintenance_plan.interval_step)
@@ -113,7 +101,6 @@ class MaintenanceEquipment(models.Model):
     def _compute_next_maintenance(self):
         """ Redefine the function to display next_action_date in kanban view"""
         for equipment in self:
-            next_plan_dates = equipment.maintenance_plan_ids.mapped("next_maintenance_date")
             next_plan_dates = equipment.maintenance_plan_ids.mapped("next_maintenance_date")
             next_unplanned_dates = (
                 self.env["maintenance.request"]

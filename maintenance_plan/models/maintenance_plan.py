@@ -131,6 +131,9 @@ class MaintenancePlan(models.Model):
             # if (rec.equipment_id.company_id and rec.company_id != rec.equipment_id.company_id):
             #     raise ValidationError(_("Maintenace Equipment must belong to the equipment's company"))
             pass
+            # if (rec.equipment_id.company_id and rec.company_id != rec.equipment_id.company_id):
+            #     raise ValidationError(_("Maintenace Equipment must belong to the equipment's company"))
+            pass
 
     def unlink(self):
         """ Restrict deletion of maintenance plan should there be maintenance
