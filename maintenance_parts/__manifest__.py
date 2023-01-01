@@ -3,7 +3,7 @@
     "version" : "b.1",
     "author" : "I Dream of ERP - Justin Mangini",
     'category': 'Human Resources',
-    "depends" : ['maintenance', 'stock', 'maintenance_plan'],
+    "depends" : ['maintenance', 'stock', 'maintenance_plan', 'base_maintenance'],
     "init_xml" : [],
     "demo_xml" : [],
     "description": "Adds parts inventory managment to Equipments module",
