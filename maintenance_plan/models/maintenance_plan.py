@@ -8,19 +8,19 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
-def get_relativedelta(interval, step):
-    if step == "day":
-        return relativedelta(days=interval)
-    elif step == "week":
-        return relativedelta(weeks=interval)
-    elif step == "month":
-        return relativedelta(months=interval)
-    elif step == "year":
-        return relativedelta(years=interval)
-    elif step == "hour":
-        return relativedelta(hours=interval)
-    elif step == "weekday":
-        return relativedelta(weekday=interval)
+# def get_relativedelta(interval, step):
+#     if step == "day":
+#         return relativedelta(days=interval)
+#     elif step == "week":
+#         return relativedelta(weeks=interval)
+#     elif step == "month":
+#         return relativedelta(months=interval)
+#     elif step == "year":
+#         return relativedelta(years=interval)
+#     elif step == "hour":
+#         return relativedelta(hours=interval)
+#     elif step == "weekday":
+#         return relativedelta(weekday=interval)
 
 
 class MaintenancePlan(models.Model):
@@ -44,16 +44,6 @@ class MaintenancePlan(models.Model):
     next_maintenance_date = fields.Date("Next maintenance date", compute="_compute_next_maintenance", store=True)
     maintenance_plan_horizon = fields.Integer(string="Planning Horizon period", default=1, help="Maintenance planning horizon. Only the maintenance requests inside the horizon will be created.")
     planning_step = fields.Selection(intervals, string="Planning Horizon step", default="year", help="Let the event automatically repeat at that interval")
-    equipment_id = fields.Many2one(string="Equipment", comodel_name="maintenance.equipment", ondelete="cascade")
-    company_id = fields.Many2one(comodel_name="res.company", default=lambda self: self.env.company,)
-    maintenance_kind_id = fields.Many2one(string="Maintenance Kind", comodel_name="maintenance.kind", ondelete="restrict")
-    interval = fields.Integer(string="Frequency", default=1, help="Interval between each maintenance")
-    interval_step = fields.Selection(intervals, string="Recurrence", default="year", help="Let the event automatically repeat at that interval step")
-    duration = fields.Float(string="Duration (hours)", help="Maintenance duration in hours")
-    start_maintenance_date = fields.Date(string="Start maintenance date", default=fields.Date.context_today, help="Date from which the maintenance will we active")
-    next_maintenance_date = fields.Date("Next maintenance date", compute="_compute_next_maintenance", store=True)
-    maintenance_plan_horizon = fields.Integer(string="Planning Horizon period", default=1, help="Maintenance planning horizon. Only the maintenance requests inside the horizon will be created.")
-    planning_step = fields.Selection(intervals, string="Planning Horizon step", default="year", help="Let the event automatically repeat at that interval")
     note = fields.Html("Note")
     maintenance_ids = fields.One2many("maintenance.request", "maintenance_plan_id", string="Maintenance requests")
     maintenance_count = fields.Integer(compute="_compute_maintenance_count", string="Maintenance", store=True)
@@ -66,7 +56,6 @@ class MaintenancePlan(models.Model):
     def name_get(self):
         result = []
         for plan in self:
-            result.append(  (plan.id, plan.name or _("Unnamed %s plan (%s)") % (plan.maintenance_kind_id.name or "", plan.equipment_id.name)) )
             result.append(  (plan.id, plan.name or _("Unnamed %s plan (%s)") % (plan.maintenance_kind_id.name or "", plan.equipment_id.name)) )
         return result
 
@@ -85,6 +74,10 @@ class MaintenancePlan(models.Model):
             return relativedelta(months=interval)
         elif step == "year":
             return relativedelta(years=interval)
+        elif step == "hour":
+            return relativedelta(hours=interval)
+        elif step == "weekday":
+            return relativedelta(weekday=interval)
 
     @api.depends(
         "interval",
@@ -96,7 +89,7 @@ class MaintenancePlan(models.Model):
     def _compute_next_maintenance(self):
         for plan in self.filtered(lambda x: x.interval > 0):
 
-            interval_timedelta = get_relativedelta(
+            interval_timedelta = self.get_relativedelta(
                 plan.interval, plan.interval_step
             )
 
