@@ -52,16 +52,15 @@
             <field name="maintenance_type" position="after">
                 <field name="maintenance_kind_id" />
             </field>
-            <field name="description" position="replace">
-                <notebook>
-                    <page string="Instructions">
-                        <field name="note" placeholder="Describe the maintenance to do..."/>
-                    </page>
-                    <page string="Notes">
-                        <field name="description" placeholder="Internal notes..." />
-                    </page>
-                </notebook>
-            </field>
+            <page name="description_page" position="replace">
+                <field name="maintenance_plan_id" invisible="1"/>
+                <page string="Instructions">
+                    <field name="note" placeholder="Describe the maintenance to do..." attrs="{'readonly':[('maintenance_plan_id','!=', 'False')]}"/>
+                </page>
+                <page string="Notes">
+                    <field name="description" placeholder="Internal notes..." />
+                </page>
+            </page>
         </field>
     </record>
     <record id="maintenance.hr_equipment_action" model="ir.actions.act_window">
