@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="maintenance_parts_view" model="stock.location">
+            <field name="name">Maintenance Parts Store</field>
+            <field name="usage">view</field>
+            <field name="location_id" ref="stock.stock_location_stock"/>
+        </record>
+        <record id="maintenance_parts_location" model="stock.location">
+            <field name="name">Maintenance Parts</field>
+            <field name="usage">internal</field>
+            <field name="location_id" ref="maintenance_parts.maintenance_parts_view"/>
+        </record>
+    </data>
+</odoo>
