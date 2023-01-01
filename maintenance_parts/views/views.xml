@@ -27,7 +27,7 @@
     <record id="maintenance_request_parts_form" model="ir.ui.view" >
         <field name="name">maintenance.request.parts.form</field>
         <field name="model">maintenance.request</field>
-        <field name="inherit_id" ref="maintenance_req_tabbed.request_tabbed_form"/>
+        <field name="inherit_id" ref="base_maintenance.equipment_request_view_form"/>
         <field eval="20" name="priority"/>
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
