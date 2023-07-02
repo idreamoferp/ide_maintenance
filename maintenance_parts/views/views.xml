@@ -29,26 +29,48 @@
         <field name="model">maintenance.request</field>
         <field name="inherit_id" ref="base_maintenance.equipment_request_view_form"/>
         <field eval="20" name="priority"/>
+        <!-- <field name="context">{'default_location_id': ref('maintenance_parts.maintenance_parts_location'),'default_location_dest_id': ref('maintenance_parts.maintenance_parts_consumed')}</field> -->
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
+                
                 <page name="parts" string="Parts">
-                    <field name="move_raw_ids">
-                        <tree delete="0" default_order="sequence"  >
+                    <field name="_barcode_scanned" widget="barcode_handler"/>
+                    <button name="action_assign_parts" string="Check Parts Availability" type="object" class="oe_highlight"/>
+                    <button name="action_mark_parts_done" string="Finish Parts" type="object" class="oe_highlight"/>
+                    <field name="part_move_ids">
+                      <!--  decoration-muted="state == 'cancel' or (state == 'done' and is_locked == True)" -->
+                        <tree delete="1" default_order="sequence" decoration-danger="state != 'done' and quantity_done > reserved_availability">
                             <field name="product_id" required="1"/>
                             <field name="name" invisible="1"/>
-                            <!--<field name="unit_factor" invisible="1"/>-->
-                            <field name="product_uom" groups="uom.group_uom"/>
+                            <!--<field name="unit_factor" invisible="1"/>-->                            
                             <field name="has_tracking" invisible="1"/>
                             <!--<field name="needs_lots" readonly="1" groups="stock.group_production_lot"/>-->
-                            <!--<field name="is_done" invisible="1"/>-->
+                            <field name="is_done" invisible="1"/>
                             <field name="sequence" invisible="1"/>
-                            <field name="location_id" invisible="1"/>
-                            <!--<field name="location_dest_id" domain="[('id', 'child_of', parent.location_dest_id)]" invisible="1"/>-->
-                            <!--<field name="state" invisible="1" force_save="1"/>-->
+                            <field name="location_id"/>
+                            <!-- <field name="location_dest_id"/> -->                            
                             <field name="product_uom_qty" string="To Consume"/>
-                            <!--<field name="reserved_availability" attrs="{'invisible': [('is_done', '=', True)], 'column_invisible': [('parent.state', '=', 'done')]}" string="Reserved"/>-->
-                            <field name="quantity_done" string="Consumed" readonly="1"/>
+                            <field name="product_uom" groups="uom.group_uom"/>
+                            <field name="reserved_availability" attrs="{'invisible': [('is_done', '=', True)]}" string="Reserved"/>
+                            <field name="quantity_done" string="Consumed" />                            
+                            <field name="state" invisible="0" force_save="1"/>
+                            <button name="action_show_details" string="Consume" type="object" class="oe_highlight" attrs="{'invisible': [('is_done', '=', True)]}"/>
                         </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="product_id" required="1"/>
+                                    <field name="location_id"/>
+                                    <field name="location_dest_id"/>
+                                </group>
+                                <group>
+                                    <field name="product_uom_qty" string="To Consume"/>
+                                    <field name="reserved_availability" attrs="{'invisible': [('is_done', '=', True)]}" string="Reserved"/>
+                                    <field name="quantity_done" string="Consumed" readonly="1"/>                            
+                                </group>
+                                <field name="move_line_ids"/>
+                            </group>
+                        </form>
                     </field>
                 </page>
             </xpath>

@@ -11,5 +11,10 @@
             <field name="usage">internal</field>
             <field name="location_id" ref="maintenance_parts.maintenance_parts_view"/>
         </record>
+        <record id="maintenance_parts_consumed" model="stock.location">
+            <field name="name">Maintenance Parts Consumed</field>
+            <field name="usage">inventory</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+        </record>
     </data>
 </odoo>
